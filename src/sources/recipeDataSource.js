@@ -4,7 +4,7 @@ module.exports = class RecipeAPI extends RESTDataSource {
 
   constructor() {
     super();
-    this.baseURL = process.env.API;
+    this.baseURL = process.env.RECIPE_API;
   }
 
   async getAllUsers() {
