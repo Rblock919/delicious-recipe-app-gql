@@ -30,14 +30,10 @@ const server = new ApolloServer({
   })
 });
 
-// Configure cross-origin requests
 const app = express();
-const corsOptions = {
-  origin: 'http://localhost:4200',
-  credentials: true
-};
 
-app.use(cors(corsOptions));
+// Configure cross-origin requests
+app.use(cors({origin: true, credentials: true}));
 // server.applyMiddleware({ app, path: '/', cors: corsOptions});
 server.applyMiddleware({ app, path: '/', cors: false});
 
