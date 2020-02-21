@@ -15,6 +15,11 @@ module.exports = class RecipeAPI extends RESTDataSource {
     return await this.get('admin/users');
   }
 
+  async updateUsers(users) {
+    console.log(`users: ${JSON.stringify(users)}`);
+    return await this.post('admin/updateUsers', users);
+  }
+
   async getAllUnapprovedRecipes() {
     return await this.get('admin/approval')
   }
@@ -47,6 +52,11 @@ module.exports = class RecipeAPI extends RESTDataSource {
   async addRecipe(recipe, approvalId) {
     const data = {recipe, approvalId};
     return await this.post('recipes/add', data);
+  }
+
+  async updateRecipe(recipe) {
+    const data = {recipe};
+    return await this.patch('recipes/update', data);
   }
 
   async favoriteRecipe(recipeInfo) {

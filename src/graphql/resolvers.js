@@ -12,6 +12,23 @@ const resolvers = {
   },
   Mutation: {
     deleteRecipe: (root, { id }, { dataSources }) => dataSources.recipeAPI.deleteRecipe(id),
+    updateUsers: (root, args, { dataSources }) => {
+      console.log(`args: ${JSON.stringify(args)}`);
+      const ids = args['idArr'];
+      const isAdmins = args['isAdminArr'];
+      const users = [];
+
+      let counter = 0;
+      for (const entry of ids) {
+        users.push({
+          _id: ids[counter],
+          isAdmin: isAdmins[counter]
+        });
+        counter++;
+      }
+
+      return dataSources.recipeAPI.updateUsers(users);
+    },
     rejectRecipe: (root, { id }, { dataSources }) => dataSources.recipeAPI.rejectRecipe(id),
     rateRecipe: (root, args, { dataSources }) => {
       const recipeInfo = {
@@ -28,10 +45,16 @@ const resolvers = {
       };
       return dataSources.recipeAPI.favoriteRecipe(recipeInfo);
     },
+    updateRecipe: (root, args, { dataSources }) => {
+      console.log(`args: ${JSON.stringify(args)}`);
+      const newRecipe = assembleRecipe(args);
+      newRecipe._id = args.recipeId;
+
+      return dataSources.recipeAPI.updateRecipe(newRecipe);
+    },
     submitForApproval: (root, args, { dataSources }) => {
       const newRecipe = assembleRecipe(args);
 
-      console.log(`recipe to submit for approval: \n${JSON.stringify(newRecipe)}`);
       return dataSources.recipeAPI.submitForApproval(newRecipe);
     },
     addRecipe: (root, args, { dataSources }) => {

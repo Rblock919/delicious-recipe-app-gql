@@ -65,11 +65,15 @@ module.exports = gql`
     addRecipe(approvalId: String!, title: String!, producer: String!, ingredientnames: [String]!, ingredientamounts: [String]!, preCook: [String], stepnames: [String]!,
       stepbodies: [String]!, imgDir: String!, calories: Int!, fat: Int, saturatedFat: Float, carbohydrate: Int, sugar: Int, fiber: Int, protein: Int,
       cholesterol: Int, sodium: Int): addRecipeRes
+    updateRecipe(recipeId: String!, title: String!, producer: String!, ingredientnames: [String]!, ingredientamounts: [String]!, preCook: [String], stepnames: [String]!,
+      stepbodies: [String]!, imgDir: String!, calories: Int!, fat: Int, saturatedFat: Float, carbohydrate: Int, sugar: Int, fiber: Int, protein: Int,
+      cholesterol: Int, sodium: Int): String
     favoriteRecipe(id: String!, favoriters: [String]!): String
     rateRecipe(id: String!, ratersKeys: [String]!, ratersValues: [String]!): String
     rejectRecipe(id: String!): String
     deleteRecipe(id: String!): String
     signIn(username: String!, password: String!): signInRes
     signUp(username: String!, password: String!): signInRes
+    updateUsers(idArr: [String]!, isAdminArr: [Boolean]!): String
   }
 `;
