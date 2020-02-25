@@ -63,7 +63,11 @@ module.exports = gql`
     addRecipe(approvalId: String!, recipe: inRecipe): addRecipeRes
     updateRecipe(recipeId: String!, recipe: inRecipe): String
     favoriteRecipe(id: String!, favoriters: [String]!): String
-    rateRecipe(id: String!, ratersKeys: [String]!, ratersValues: [String]!): String
+    rateRecipe(
+      id: String!
+      ratersKeys: [String]!
+      ratersValues: [String]!
+    ): String
     rejectRecipe(id: String!): String
     deleteRecipe(id: String!): String
     signIn(username: String!, password: String!): signInRes

@@ -1,7 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
 module.exports = class RecipeAPI extends RESTDataSource {
-
   constructor() {
     super();
     this.baseURL = process.env.RECIPE_API;
@@ -21,11 +20,11 @@ module.exports = class RecipeAPI extends RESTDataSource {
   }
 
   async getAllUnapprovedRecipes() {
-    return await this.get('admin/approval')
+    return await this.get('admin/approval');
   }
 
   async getUnapprovedRecipe(id) {
-    return await this.get(`admin/approval/${id}`)
+    return await this.get(`admin/approval/${id}`);
   }
 
   async getAllRecipes() {
@@ -37,7 +36,7 @@ module.exports = class RecipeAPI extends RESTDataSource {
   }
 
   async deleteRecipe(id) {
-    return await this.delete(`recipes/delete/${id}`)
+    return await this.delete(`recipes/delete/${id}`);
   }
 
   async rejectRecipe(id) {
@@ -45,17 +44,17 @@ module.exports = class RecipeAPI extends RESTDataSource {
   }
 
   async submitForApproval(recipe) {
-    const data = {recipe};
+    const data = { recipe };
     return await this.post('recipes/submit', data);
   }
 
   async addRecipe(recipe, approvalId) {
-    const data = {recipe, approvalId};
+    const data = { recipe, approvalId };
     return await this.post('recipes/add', data);
   }
 
   async updateRecipe(recipe) {
-    const data = {recipe};
+    const data = { recipe };
     return await this.patch('recipes/update', data);
   }
 
@@ -82,6 +81,4 @@ module.exports = class RecipeAPI extends RESTDataSource {
   async getUserData() {
     return await this.get('auth/getUserData');
   }
-
 };
-

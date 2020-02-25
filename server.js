@@ -5,7 +5,6 @@ const chalk = require('chalk');
 const cors = require('cors');
 
 const RecipeAPI  = require('./src/sources/recipeDataSource');
-// const typeDefs = require('./src/graphql/typeDefs');
 const recipeInputs = require('./src/graphql/inputs/recipeInput');
 const recipeTypes = require('./src/graphql/types/recipeTypes');
 const resolvers = require('./src/graphql/resolvers');

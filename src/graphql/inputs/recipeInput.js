@@ -36,5 +36,4 @@ module.exports = gql`
     name: String!
     amount: String!
   }
-
 `;
