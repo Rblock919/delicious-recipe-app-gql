@@ -4,7 +4,6 @@ module.exports = class RecipeAPI extends RESTDataSource {
 
   constructor() {
     super();
-    console.log('connecting to ' + process.env.RECIPE_API);
     this.baseURL = process.env.RECIPE_API;
   }
 

@@ -1,4 +1,4 @@
-const assembleRecipe = require('../functions/assembleRecipe');
+const assembleMap = require('../functions/assembleMap');
 
 const resolvers = {
   Query: {
@@ -13,7 +13,6 @@ const resolvers = {
   Mutation: {
     deleteRecipe: (root, { id }, { dataSources }) => dataSources.recipeAPI.deleteRecipe(id),
     updateUsers: (root, args, { dataSources }) => {
-      console.log(`args: ${JSON.stringify(args)}`);
       const ids = args['idArr'];
       const isAdmins = args['isAdminArr'];
       const users = [];
@@ -31,10 +30,10 @@ const resolvers = {
     },
     rejectRecipe: (root, { id }, { dataSources }) => dataSources.recipeAPI.rejectRecipe(id),
     rateRecipe: (root, args, { dataSources }) => {
+      const newMap = assembleMap(args.ratersKeys, args.ratersValues);
       const recipeInfo = {
         _id: args.id,
-        ratersKeys: args.ratersKeys,
-        ratersValues: args.ratersValues
+        raters: newMap
       };
       return dataSources.recipeAPI.rateRecipe(recipeInfo);
     },
@@ -46,22 +45,29 @@ const resolvers = {
       return dataSources.recipeAPI.favoriteRecipe(recipeInfo);
     },
     updateRecipe: (root, args, { dataSources }) => {
-      console.log(`args: ${JSON.stringify(args)}`);
-      const newRecipe = assembleRecipe(args);
-      newRecipe._id = args.recipeId;
+      const updatedRecipe = args.recipe;
+      // TODO: fix the discrepancy in the angular forms between nutrition & nutritionValues
+      updatedRecipe.nutritionValues = {...updatedRecipe.nutrition};
+      delete updatedRecipe.nutrition;
 
-      return dataSources.recipeAPI.updateRecipe(newRecipe);
+      updatedRecipe.raters = assembleMap(updatedRecipe.raters.keys, updatedRecipe.raters.values);
+      updatedRecipe._id = args.recipeId;
+
+      return dataSources.recipeAPI.updateRecipe(updatedRecipe);
     },
     submitForApproval: (root, args, { dataSources }) => {
-      const newRecipe = assembleRecipe(args);
+      const newRecipe = args.recipe;
+      newRecipe.nutritionValues = {...newRecipe.nutrition};
+      delete newRecipe.nutrition;
 
       return dataSources.recipeAPI.submitForApproval(newRecipe);
     },
     addRecipe: (root, args, { dataSources }) => {
-      const recipe = { ...args };
-      const newRecipe = assembleRecipe(recipe);
+      const recipe = args.recipe;
+      recipe.nutritionValues = {...recipe.nutrition};
+      delete recipe.nutrition;
 
-      return dataSources.recipeAPI.addRecipe(newRecipe, args.approvalId);
+      return dataSources.recipeAPI.addRecipe(recipe, args.approvalId);
     },
     signIn: (root, args, { res, dataSources }) => {
       const user = {
