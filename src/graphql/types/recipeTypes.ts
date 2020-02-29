@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server');
 
-module.exports = gql`
+export default gql`
   type Step {
     name: String!
     body: String!

@@ -1,24 +1,46 @@
-const assembleMap = require('../functions/assembleMap');
+//const assembleMap = require('../functions/assembleMap');
+import assembleMap from '../functions/assembleMap';
 
 const resolvers = {
   Query: {
-    users: (root, args, { dataSources }) => dataSources.recipeAPI.getAllUsers(),
-    recipe: (root, { id }, { dataSources }) =>
-      dataSources.recipeAPI.getRecipe(id),
-    recipes: (root, args, { dataSources }) =>
+    users: (root: any, args: any, { dataSources }: { dataSources: any }) =>
+      dataSources.recipeAPI.getAllUsers(),
+    recipe: (
+      root: any,
+      { id }: { id: string },
+      { dataSources }: { dataSources: any }
+    ) => dataSources.recipeAPI.getRecipe(id),
+    recipes: (root: any, args: any, { dataSources }: { dataSources: any }) =>
       dataSources.recipeAPI.getAllRecipes(),
-    unapprovedRecipe: (root, { id }, { dataSources }) =>
-      dataSources.recipeAPI.getUnapprovedRecipe(id),
-    unapprovedRecipes: (root, args, { dataSources }) =>
-      dataSources.recipeAPI.getAllUnapprovedRecipes(),
-    signOut: (root, args, { dataSources }) => dataSources.recipeAPI.signOut(),
-    getUserData: (root, args, { dataSources }) =>
-      dataSources.recipeAPI.getUserData(),
+    unapprovedRecipe: (
+      root: any,
+      { id }: { id: string },
+      { dataSources }: { dataSources: any }
+    ) => dataSources.recipeAPI.getUnapprovedRecipe(id),
+    unapprovedRecipes: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => dataSources.recipeAPI.getAllUnapprovedRecipes(),
+    signOut: (root: any, args: any, { dataSources }: { dataSources: any }) =>
+      dataSources.recipeAPI.signOut(),
+    getUserData: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => dataSources.recipeAPI.getUserData(),
   },
   Mutation: {
-    deleteRecipe: (root, { id }, { dataSources }) =>
-      dataSources.recipeAPI.deleteRecipe(id),
-    updateUsers: (root, args, { dataSources }) => {
+    deleteRecipe: (
+      root: any,
+      { id }: { id: string },
+      { dataSources }: { dataSources: any }
+    ) => dataSources.recipeAPI.deleteRecipe(id),
+    updateUsers: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => {
       const ids = args['idArr'];
       const isAdmins = args['isAdminArr'];
       const users = [];
@@ -34,9 +56,16 @@ const resolvers = {
 
       return dataSources.recipeAPI.updateUsers(users);
     },
-    rejectRecipe: (root, { id }, { dataSources }) =>
-      dataSources.recipeAPI.rejectRecipe(id),
-    rateRecipe: (root, args, { dataSources }) => {
+    rejectRecipe: (
+      root: any,
+      { id }: { id: string },
+      { dataSources }: { dataSources: any }
+    ) => dataSources.recipeAPI.rejectRecipe(id),
+    rateRecipe: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => {
       const newMap = assembleMap(args.ratersKeys, args.ratersValues);
       const recipeInfo = {
         _id: args.id,
@@ -44,14 +73,22 @@ const resolvers = {
       };
       return dataSources.recipeAPI.rateRecipe(recipeInfo);
     },
-    favoriteRecipe: (root, args, { dataSources }) => {
+    favoriteRecipe: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => {
       const recipeInfo = {
         _id: args.id,
         favoriters: args.favoriters,
       };
       return dataSources.recipeAPI.favoriteRecipe(recipeInfo);
     },
-    updateRecipe: (root, args, { dataSources }) => {
+    updateRecipe: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => {
       const updatedRecipe = args.recipe;
       // TODO: fix the discrepancy in the angular forms between nutrition & nutritionValues
       updatedRecipe.nutritionValues = { ...updatedRecipe.nutrition };
@@ -65,21 +102,33 @@ const resolvers = {
 
       return dataSources.recipeAPI.updateRecipe(updatedRecipe);
     },
-    submitForApproval: (root, args, { dataSources }) => {
+    submitForApproval: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => {
       const newRecipe = args.recipe;
       newRecipe.nutritionValues = { ...newRecipe.nutrition };
       delete newRecipe.nutrition;
 
       return dataSources.recipeAPI.submitForApproval(newRecipe);
     },
-    addRecipe: (root, args, { dataSources }) => {
+    addRecipe: (
+      root: any,
+      args: any,
+      { dataSources }: { dataSources: any }
+    ) => {
       const recipe = args.recipe;
       recipe.nutritionValues = { ...recipe.nutrition };
       delete recipe.nutrition;
 
       return dataSources.recipeAPI.addRecipe(recipe, args.approvalId);
     },
-    signIn: (root, args, { res, dataSources }) => {
+    signIn: (
+      root: any,
+      args: any,
+      { res, dataSources }: { res: any; dataSources: any }
+    ) => {
       const user = {
         username: args.username,
         password: args.password,
@@ -93,7 +142,7 @@ const resolvers = {
       });
       return dataSources.recipeAPI.signIn(user);
     },
-    signUp: (root, args, { dataSources }) => {
+    signUp: (root: any, args: any, { dataSources }: { dataSources: any }) => {
       const user = {
         username: args.username,
         password: args.password,
@@ -103,7 +152,7 @@ const resolvers = {
   },
   Recipe: {
     // have to do this since graphql doesn't natively support maps yet -.-
-    raters: ({ raters }) => {
+    raters: ({ raters }: { raters: Map<string, string> }) => {
       const ratersIds = [];
       const ratersValues = [];
       for (const key of Object.keys(raters)) {

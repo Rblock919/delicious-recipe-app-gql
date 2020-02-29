@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server');
 
-module.exports = gql`
+export default gql`
   input inRecipe {
     _id: String
     title: String!

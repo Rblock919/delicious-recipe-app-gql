@@ -1,12 +1,12 @@
-const { RESTDataSource } = require('apollo-datasource-rest');
+import { RESTDataSource } from 'apollo-datasource-rest';
 
-module.exports = class RecipeAPI extends RESTDataSource {
+export default class RecipeAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = process.env.RECIPE_API;
   }
 
-  willSendRequest(request) {
+  willSendRequest(request: any) {
     request.headers.set('Authorization', this.context.token);
   }
 
@@ -14,7 +14,7 @@ module.exports = class RecipeAPI extends RESTDataSource {
     return await this.get('admin/users');
   }
 
-  async updateUsers(users) {
+  async updateUsers(users: any) {
     console.log(`users: ${JSON.stringify(users)}`);
     return await this.post('admin/updateUsers', users);
   }
@@ -23,7 +23,7 @@ module.exports = class RecipeAPI extends RESTDataSource {
     return await this.get('admin/approval');
   }
 
-  async getUnapprovedRecipe(id) {
+  async getUnapprovedRecipe(id: string) {
     return await this.get(`admin/approval/${id}`);
   }
 
@@ -31,46 +31,46 @@ module.exports = class RecipeAPI extends RESTDataSource {
     return await this.get('recipes');
   }
 
-  async getRecipe(id) {
+  async getRecipe(id: string) {
     return await this.get(`recipes/${id}`);
   }
 
-  async deleteRecipe(id) {
+  async deleteRecipe(id: string) {
     return await this.delete(`recipes/delete/${id}`);
   }
 
-  async rejectRecipe(id) {
+  async rejectRecipe(id: string) {
     return await this.delete(`recipes/reject/${id}`);
   }
 
-  async submitForApproval(recipe) {
+  async submitForApproval(recipe: any) {
     const data = { recipe };
     return await this.post('recipes/submit', data);
   }
 
-  async addRecipe(recipe, approvalId) {
+  async addRecipe(recipe: any, approvalId: string) {
     const data = { recipe, approvalId };
     return await this.post('recipes/add', data);
   }
 
-  async updateRecipe(recipe) {
+  async updateRecipe(recipe: any) {
     const data = { recipe };
     return await this.patch('recipes/update', data);
   }
 
-  async favoriteRecipe(recipeInfo) {
+  async favoriteRecipe(recipeInfo: any) {
     return await this.post('recipes/favorite', recipeInfo);
   }
 
-  async rateRecipe(recipeInfo) {
+  async rateRecipe(recipeInfo: any) {
     return await this.post('recipes/rate', recipeInfo);
   }
 
-  async signIn(user) {
+  async signIn(user: any) {
     return await this.post('auth/signIn', user);
   }
 
-  async signUp(userInfo) {
+  async signUp(userInfo: any) {
     return await this.post('auth/signUp', userInfo);
   }
 
@@ -81,4 +81,4 @@ module.exports = class RecipeAPI extends RESTDataSource {
   async getUserData() {
     return await this.get('auth/getUserData');
   }
-};
+}

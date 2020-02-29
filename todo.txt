@@ -1,0 +1,15 @@
+              -- Recipe Apollo Server --
+
+
+- create dev docker file
+- create prod docker file
+
+- implement eslint for typescript
+
+
+  -- Shared --
+- handle getUserData with gql
+- start to implement testing
+- implement password resets (for users & admin)
+- implement pagination for recipe search page and recipe list page
+- possibly email just ingredients or something
