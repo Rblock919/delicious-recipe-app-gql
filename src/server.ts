@@ -2,22 +2,15 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import chalk from 'chalk';
 import cors from 'cors';
-import dotenv from 'dotenv';
-
+import 'dotenv/config';
 import RecipeAPI from './sources/recipeDataSource';
 import recipeInputs from './graphql/inputs/recipeInput';
 import recipeTypes from './graphql/types/recipeTypes';
 import resolvers from './graphql/resolvers';
 
-const remote = process.env.REMOTE || false;
-if (!remote) {
-  dotenv.config();
-}
-
 const server = new ApolloServer({
   typeDefs: [recipeInputs, recipeTypes],
   resolvers,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: async ({ req, res }: { req: any; res: any }) => {
     const token = req.headers.authorization || '';
     return {

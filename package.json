@@ -18,7 +18,12 @@
     "type": "git",
     "url": "git+https://github.com/Rblock919/delicious-recipe-app-gql.git"
   },
-  "keywords": ["graphql", "apollo", "express", "typescript"],
+  "keywords": [
+    "graphql",
+    "apollo",
+    "express",
+    "typescript"
+  ],
   "author": "Ryan Block",
   "license": "ISC",
   "bugs": {
