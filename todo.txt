@@ -1,10 +1,6 @@
               -- Recipe Apollo Server --
 
-
-- create dev docker file
 - create prod docker file
-
-- implement eslint for typescript
 
 
   -- Shared --
