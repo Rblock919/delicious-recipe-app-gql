@@ -16,14 +16,14 @@ const server = new ApolloServer({
     return {
       req,
       res,
-      token
+      token,
     };
     // req,
     // res
   },
   dataSources: () => ({
-    recipeAPI: new RecipeAPI()
-  })
+    recipeAPI: new RecipeAPI(),
+  }),
 });
 
 const app = express();

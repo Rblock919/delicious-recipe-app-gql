@@ -13,7 +13,7 @@ export default {
       dataSources.recipeAPI.getAllUnapprovedRecipes(),
     signOut: (root, args, { dataSources }) => dataSources.recipeAPI.signOut(),
     getUserData: (root, args, { dataSources }) =>
-      dataSources.recipeAPI.getUserData()
+      dataSources.recipeAPI.getUserData(),
   },
   Mutation: {
     deleteRecipe: (root, { id }, { dataSources }) =>
@@ -26,7 +26,7 @@ export default {
       ids.forEach((id, index) => {
         users.push({
           _id: id,
-          isAdmin: isAdmins[index]
+          isAdmin: isAdmins[index],
         });
       });
 
@@ -38,14 +38,14 @@ export default {
       const newMap = assembleMap(args.ratersKeys, args.ratersValues);
       const recipeInfo = {
         _id: args.id,
-        raters: newMap
+        raters: newMap,
       };
       return dataSources.recipeAPI.rateRecipe(recipeInfo);
     },
     favoriteRecipe: (root, args, { dataSources }) => {
       const recipeInfo = {
         _id: args.id,
-        favoriters: args.favoriters
+        favoriters: args.favoriters,
       };
       return dataSources.recipeAPI.favoriteRecipe(recipeInfo);
     },
@@ -80,24 +80,24 @@ export default {
     signIn: (root, args, { res, dataSources }) => {
       const user = {
         username: args.username,
-        password: args.password
+        password: args.password,
       };
       res.cookie('test', 'qwerty', {
         path: '/',
         httpOnly: true,
         secure: false,
         sameSite: false,
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 1 week
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
       });
       return dataSources.recipeAPI.signIn(user);
     },
     signUp: (root, args, { dataSources }) => {
       const user = {
         username: args.username,
-        password: args.password
+        password: args.password,
       };
       return dataSources.recipeAPI.signUp(user);
-    }
+    },
   },
   Recipe: {
     // have to do this since graphql doesn't natively support maps yet -.-
@@ -112,8 +112,8 @@ export default {
       });
       return {
         keys: ratersIds,
-        values: ratersValues
+        values: ratersValues,
       };
-    }
-  }
+    },
+  },
 };
