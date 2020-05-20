@@ -1,14 +1,3 @@
-module.exports = {
-  trailingComma: 'es5',
-  tabWidth: 2,
-  semi: true,
-  singleQuote: true,
-  overrides: [
-    {
-      files: 'package*.json',
-      options: {
-        printWidth: 1000,
-      },
-    },
-  ],
-};
+const { prettierConfig } = require('@rblock919/eslint-config');
+
+module.exports = prettierConfig;
