@@ -1,25 +1,25 @@
 import { gql } from 'apollo-server';
 
-export default gql`
-  input inRecipe {
-    _id: String
+export const recipeInputs = gql`
+  input RecipeInput {
+    id: ID
     title: String!
     producer: String!
-    ingredients: [inIngredient!]
-    preCook: [String!]
-    steps: [inStep!]
-    nutrition: inNutritionValues!
+    ingredients: [IngredientInput!]!
+    preCook: [String]!
+    steps: [StepInput!]!
+    nutrition: NutritionValuesInput!
     imgDir: String!
     favoriters: [String]
-    raters: inRaters!
+    raters: RatersInput
   }
-  input inRaters {
-    keys: [String]
-    values: [String]
+  input RatersInput {
+    keys: [String]!
+    values: [String]!
   }
-  input inNutritionValues {
+  input NutritionValuesInput {
     calories: Int!
-    fat: Int
+    fat: Float
     saturatedFat: Float
     carbohydrate: Int
     sugar: Int
@@ -28,11 +28,11 @@ export default gql`
     cholesterol: Int
     sodium: Int
   }
-  input inStep {
+  input StepInput {
     name: String!
     body: String!
   }
-  input inIngredient {
+  input IngredientInput {
     name: String!
     amount: String!
   }

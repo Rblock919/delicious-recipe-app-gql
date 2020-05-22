@@ -19,33 +19,15 @@
 - add sentry to project code
 - add sourcemap options to tsconfig
 
----- Propogate Current Nest-Server Gql Schema Changes to This Server ----
-
-- change input names to end with the word input
-- change fat from Int -> Float
-- create enum for the recipe producers
-- change addRecipe -> add (mutation name) (also reject & delete)
-- update return type of users Query (to have !s)
-- update ids from type String -> ID
-- add ! to end of ingredients return type array for Recipe type (step too)
-- remove ! from String in preCook for Recipe type (favoriters too)
-- raters values -> Int
-- move ! from inside [] to outside [] for both props on type Raters
-- add ! to outside of [] for ingredients on RecipeInput (steps too)
-- add ! to isAdmin to type User
-- add ! to the return types for all queries and mutations
-
--------------------------------------------------------------------------
-
-
-
 ----------------------- General Schema Improvements --------------------
 
-- change _id to id
 - make most queries & all mutations 1 single parameter called 'input'
-- add ! to outside of array for favoriters (should always return an array, even if empty)
 - change _id from string -> ID for RecipeInput
-- change fat & saturatedFat to floats for NutritionValuesInput
+
+future:
+
+- update return types of string to IDs where they are IDs
+- update nutritionValues -> nutrition
 
 ------------------------------------------------------------------------
 

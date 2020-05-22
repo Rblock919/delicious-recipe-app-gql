@@ -3,14 +3,16 @@ import { ApolloServer } from 'apollo-server-express';
 import chalk from 'chalk';
 import cors from 'cors';
 import 'dotenv/config';
-import RecipeAPI from './sources/recipeDataSource';
-import recipeInputs from './graphql/inputs/recipeInput';
-import recipeTypes from './graphql/types/recipeTypes';
-import resolvers from './graphql/resolvers';
+
+import { RecipeAPI } from './sources/recipeDataSource';
+import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers';
+import { testResolvers } from './test/testResolver';
+import { recipeResolvers } from './recipes';
 
 const server = new ApolloServer({
-  typeDefs: [recipeInputs, recipeTypes],
-  resolvers,
+  typeDefs,
+  resolvers: [resolvers, recipeResolvers, testResolvers],
   context: async ({ req, res }: { req: any; res: any }) => {
     const token = req.headers.authorization || '';
     return {
@@ -18,8 +20,6 @@ const server = new ApolloServer({
       res,
       token,
     };
-    // req,
-    // res
   },
   dataSources: () => ({
     recipeAPI: new RecipeAPI(),
@@ -46,7 +46,3 @@ process.on('SIGINT', () => {
   console.log('graphql server shutting down...');
   process.exit(0);
 });
-
-// server.listen().then(({ url }) => {
-//   console.log(`🚀 GraphQL server ready at ${url}!`)
-// });

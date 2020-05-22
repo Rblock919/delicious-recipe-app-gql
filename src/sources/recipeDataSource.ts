@@ -1,6 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-export default class RecipeAPI extends RESTDataSource {
+export class RecipeAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = process.env.RECIPE_API;

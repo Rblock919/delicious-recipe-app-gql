@@ -1,4 +1,4 @@
-export default function assembleMap(
+export const assembleMap = function(
   ratersKeys: string[],
   ratersValues: string[]
 ) {
@@ -8,4 +8,4 @@ export default function assembleMap(
     returnMap[key] = ratersValues[index];
   });
   return returnMap;
-}
+};
