@@ -2,12 +2,12 @@
 
 export const resolvers = {
   Query: {
-    users: (root, args, { dataSources }) => dataSources.recipeAPI.getAllUsers(),
-    signOut: (root, args, { dataSources }) => dataSources.recipeAPI.signOut(),
-    me: (root, args, { dataSources }) => dataSources.recipeAPI.getUserData(),
+    users: (_, __, { dataSources }) => dataSources.recipeAPI.getAllUsers(),
+    signOut: (_, __, { dataSources }) => dataSources.recipeAPI.signOut(),
+    me: (_, __, { dataSources }) => dataSources.recipeAPI.getUserData(),
   },
   Mutation: {
-    updateUsers: (root, args, { dataSources }) => {
+    updateUsers: (_, args, { dataSources }) => {
       const ids = args.idArr as string[];
       const isAdmins = args.isAdminArr as string[];
       const users = [];
@@ -21,7 +21,7 @@ export const resolvers = {
 
       return dataSources.recipeAPI.updateUsers(users);
     },
-    signIn: (root, args, { res, dataSources }) => {
+    signIn: (_, args, { res, dataSources }) => {
       const user = {
         username: args.username,
         password: args.password,
@@ -35,7 +35,7 @@ export const resolvers = {
       });
       return dataSources.recipeAPI.signIn(user);
     },
-    signUp: (root, args, { dataSources }) => {
+    signUp: (_, args, { dataSources }) => {
       const { username, password } = args;
       return dataSources.recipeAPI.signUp({ username, password });
     },

@@ -3,23 +3,22 @@ import { recipeData } from '../data/seed';
 
 export const recipeResolvers = {
   Query: {
-    recipe: (root, { id }, { dataSources }) =>
-      dataSources.recipeAPI.getRecipe(id),
-    recipes: (root, args, { dataSources }) => {
+    recipe: (_, { id }, { dataSources }) => dataSources.recipeAPI.getRecipe(id),
+    recipes: (_, __, { dataSources }) => {
       return recipeData;
       // dataSources.recipeAPI.getAllRecipes(),
     },
-    unapprovedRecipe: (root, { id }, { dataSources }) =>
+    unapprovedRecipe: (_, { id }, { dataSources }) =>
       dataSources.recipeAPI.getUnapprovedRecipe(id),
-    unapprovedRecipes: (root, args, { dataSources }) =>
+    unapprovedRecipes: (_, __, { dataSources }) =>
       dataSources.recipeAPI.getAllUnapprovedRecipes(),
   },
   Mutation: {
-    delete: (root, { id }, { dataSources }) =>
+    delete: (_, { id }, { dataSources }) =>
       dataSources.recipeAPI.deleteRecipe(id),
-    reject: (root, { id }, { dataSources }) =>
+    reject: (_, { id }, { dataSources }) =>
       dataSources.recipeAPI.rejectRecipe(id),
-    rate: (root, args, { dataSources }) => {
+    rate: (_, args, { dataSources }) => {
       const newMap = assembleMap(args.ratersKeys, args.ratersValues);
       const recipeInfo = {
         _id: args.id,
@@ -27,14 +26,14 @@ export const recipeResolvers = {
       };
       return dataSources.recipeAPI.rateRecipe(recipeInfo);
     },
-    favorite: (root, args, { dataSources }) => {
+    favorite: (_, args, { dataSources }) => {
       const recipeInfo = {
         _id: args.id,
         favoriters: args.favoriters,
       };
       return dataSources.recipeAPI.favoriteRecipe(recipeInfo);
     },
-    update: (root, args, { dataSources }) => {
+    update: (_, args, { dataSources }) => {
       const updatedRecipe = args.recipe;
       // TODO: fix the discrepancy in the angular forms between nutrition & nutritionValues
       updatedRecipe.nutritionValues = { ...updatedRecipe.nutrition };
@@ -48,14 +47,14 @@ export const recipeResolvers = {
 
       return dataSources.recipeAPI.updateRecipe(updatedRecipe);
     },
-    submit: (root, args, { dataSources }) => {
+    submit: (_, args, { dataSources }) => {
       const newRecipe = args.recipe;
       newRecipe.nutritionValues = { ...newRecipe.nutrition };
       delete newRecipe.nutrition;
 
       return dataSources.recipeAPI.submitForApproval(newRecipe);
     },
-    add: (root, args, { dataSources }) => {
+    add: (_, args, { dataSources }) => {
       const { recipe } = args;
       recipe.nutritionValues = { ...recipe.nutrition };
       delete recipe.nutrition;
