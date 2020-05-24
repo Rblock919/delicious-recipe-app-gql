@@ -4,21 +4,28 @@ import chalk from 'chalk';
 import cors from 'cors';
 import 'dotenv/config';
 
+import { connectMongo, models } from './db';
 import { RecipeAPI } from './sources/recipeDataSource';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import { testResolvers } from './test/testResolver';
 import { recipeResolvers } from './recipes';
+import { userResolvers } from './users';
+
+connectMongo();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers: [resolvers, recipeResolvers, testResolvers],
+  resolvers: [resolvers, recipeResolvers, userResolvers, testResolvers],
   context: async ({ req, res }: { req: any; res: any }) => {
     const token = req.headers.authorization || '';
     return {
       req,
       res,
       token,
+      models: {
+        ...models,
+      },
     };
   },
   dataSources: () => ({

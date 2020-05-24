@@ -2,25 +2,9 @@
 
 export const resolvers = {
   Query: {
-    users: (_, __, { dataSources }) => dataSources.recipeAPI.getAllUsers(),
     signOut: (_, __, { dataSources }) => dataSources.recipeAPI.signOut(),
-    me: (_, __, { dataSources }) => dataSources.recipeAPI.getUserData(),
   },
   Mutation: {
-    updateUsers: (_, args, { dataSources }) => {
-      const ids = args.idArr as string[];
-      const isAdmins = args.isAdminArr as string[];
-      const users = [];
-
-      ids.forEach((id, index) => {
-        users.push({
-          _id: id,
-          isAdmin: isAdmins[index],
-        });
-      });
-
-      return dataSources.recipeAPI.updateUsers(users);
-    },
     signIn: (_, args, { res, dataSources }) => {
       const user = {
         username: args.username,

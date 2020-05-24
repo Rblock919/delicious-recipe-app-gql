@@ -1,23 +1,29 @@
 import { assembleMap } from '../helpers/assembleMap';
-import { recipeData } from '../data/seed';
+
+// TODO: eventually move all model calls to separate file where try-catchs and other things can be implemented
 
 export const recipeResolvers = {
   Query: {
-    recipe: (_, { id }, { dataSources }) => dataSources.recipeAPI.getRecipe(id),
-    recipes: (_, __, { dataSources }) => {
-      return recipeData;
-      // dataSources.recipeAPI.getAllRecipes(),
+    recipe: async (_, { id }, { models }) => {
+      return models.recipe.findById(id);
     },
-    unapprovedRecipe: (_, { id }, { dataSources }) =>
-      dataSources.recipeAPI.getUnapprovedRecipe(id),
-    unapprovedRecipes: (_, __, { dataSources }) =>
-      dataSources.recipeAPI.getAllUnapprovedRecipes(),
+    recipes: async (_, __, { models }) => {
+      return models.recipe.find();
+    },
+    unapprovedRecipe: async (_, { id }, { models }) => {
+      return models.newRecipe.findById(id);
+    },
+    unapprovedRecipes: async (_, __, { models }) => {
+      return models.newRecipe.find();
+    },
   },
   Mutation: {
-    delete: (_, { id }, { dataSources }) =>
-      dataSources.recipeAPI.deleteRecipe(id),
-    reject: (_, { id }, { dataSources }) =>
-      dataSources.recipeAPI.rejectRecipe(id),
+    delete: async (_, { id }, { models }) => {
+      models.recipe.findByIdAndDelete(id);
+    },
+    reject: async (_, { id }, { models }) => {
+      return models.newRecipe.findByIdAndDelete(id);
+    },
     rate: (_, args, { dataSources }) => {
       const newMap = assembleMap(args.ratersKeys, args.ratersValues);
       const recipeInfo = {
@@ -63,6 +69,9 @@ export const recipeResolvers = {
     },
   },
   Recipe: {
+    id: ({ _id }: { _id: number }) => {
+      return `${_id}`;
+    },
     // have to do this since graphql doesn't natively support maps yet -.-
     raters: ({ raters }: { raters: Map<string, string> }) => {
       // TODO: clean this function up once DB connection is back
