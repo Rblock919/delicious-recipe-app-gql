@@ -19,7 +19,7 @@ export const recipeResolvers = {
   },
   Mutation: {
     delete: async (_, { id }, { models }) => {
-      models.recipe.findByIdAndDelete(id);
+      return models.recipe.findByIdAndDelete(id);
     },
     reject: async (_, { id }, { models }) => {
       return models.newRecipe.findByIdAndDelete(id);
@@ -69,9 +69,6 @@ export const recipeResolvers = {
     },
   },
   Recipe: {
-    id: ({ _id }: { _id: number }) => {
-      return `${_id}`;
-    },
     // have to do this since graphql doesn't natively support maps yet -.-
     raters: ({ raters }: { raters: Map<string, string> }) => {
       // TODO: clean this function up once DB connection is back

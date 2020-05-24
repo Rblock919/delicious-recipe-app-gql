@@ -1,7 +1,9 @@
 export const userResolvers = {
   Query: {
     me: (_, __, { dataSources }) => dataSources.recipeAPI.getUserData(),
-    users: (_, __, { dataSources }) => dataSources.recipeAPI.getAllUsers(),
+    users: async (_, __, { models }) => {
+      return models.userModel.find();
+    },
   },
   Mutation: {
     updateUsers: (_, args, { dataSources }) => {

@@ -1,12 +1,9 @@
               -- Recipe Apollo Server --
 
-- create prod docker file
-
-
 - get content security policy working with gql
 
 - find better way to 'log to console' for heroku or remote environments in general (heroku different from aws lamba in terms of stdout?)
-- handle getUserData with gql
+
 - start to implement testing
 - implement password resets (for users & admin)
 - implement pagination for recipe search page and recipe list page
@@ -22,7 +19,6 @@
 ----------------------- General Schema Improvements --------------------
 
 - make most queries & all mutations 1 single parameter called 'input'
-- change _id from string -> ID for RecipeInput
 
 future:
 

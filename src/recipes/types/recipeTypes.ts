@@ -41,23 +41,13 @@ export const recipeTypes = gql`
     favoriters: [String]!
     raters: Raters!
   }
-  type User {
-    id: ID
-    username: String!
-    password: String
-    isAdmin: Boolean!
-  }
-  type AuthUser {
-    user: User
-    token: String
-  }
   type addRecipeRes {
     id: String
   }
   extend type Query {
     recipe(id: ID!): Recipe!
     recipes: [Recipe]!
-    unapprovedRecipe(id: String!): Recipe!
+    unapprovedRecipe(id: ID!): Recipe!
     unapprovedRecipes: [Recipe]!
   }
   extend type Mutation {

@@ -10,11 +10,9 @@ export const connectMongo = () => {
     { useNewUrlParser: true, useUnifiedTopology: true },
     err => {
       if (!err) {
-        console.log(chalk.inverse('connected to db in server.js'));
+        console.log(chalk.inverse('Successfully Connected to DB'));
       } else {
-        console.log(
-          chalk.red(`Error connecting to database in server.js... ${err}`)
-        );
+        console.log(chalk.red(`Error Connecting to Database... ${err}`));
       }
     }
   );
