@@ -1,23 +1,11 @@
-import { gql } from 'apollo-server';
-
 import { recipeInputs, recipeTypes } from './recipes';
 import { userTypes } from './users';
-import { testType } from './test/testType';
-
-const rootTypes = gql`
-  type Query {
-    signOut: String!
-  }
-  type Mutation {
-    signIn(username: String!, password: String!): AuthUser!
-    signUp(username: String!, password: String!): AuthUser!
-  }
-`;
+import { authTypes, authInputs } from './auth';
 
 export const typeDefs = [
-  rootTypes,
+  authTypes,
+  authInputs,
   recipeTypes,
-  userTypes,
   recipeInputs,
-  testType,
+  userTypes,
 ];

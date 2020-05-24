@@ -23,7 +23,6 @@ const LoginsSchema = new mongoose.Schema({
   },
 });
 
-// eslint-disable-next-line func-names
 LoginsSchema.static('canAuthenticate', async function(key: string) {
   const login = await this.findOne({ identityKey: key });
 
@@ -109,4 +108,4 @@ LoginsSchema.static('endProgress', async function(key: string) {
   return updatedLogin.inProgress;
 });
 
-export const loginModel = mongoose.model('logins', LoginsSchema);
+export const Login = mongoose.model('logins', LoginsSchema);

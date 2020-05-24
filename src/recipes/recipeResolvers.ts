@@ -5,24 +5,24 @@ import { assembleMap } from '../helpers/assembleMap';
 export const recipeResolvers = {
   Query: {
     recipe: async (_, { id }, { models }) => {
-      return models.recipe.findById(id);
+      return models.Recipe.findById(id);
     },
     recipes: async (_, __, { models }) => {
-      return models.recipe.find();
+      return models.Recipe.find();
     },
     unapprovedRecipe: async (_, { id }, { models }) => {
-      return models.newRecipe.findById(id);
+      return models.NewRecipe.findById(id);
     },
     unapprovedRecipes: async (_, __, { models }) => {
-      return models.newRecipe.find();
+      return models.NewRecipe.find();
     },
   },
   Mutation: {
     delete: async (_, { id }, { models }) => {
-      return models.recipe.findByIdAndDelete(id);
+      return models.Recipe.findByIdAndDelete(id);
     },
     reject: async (_, { id }, { models }) => {
-      return models.newRecipe.findByIdAndDelete(id);
+      return models.NewRecipe.findByIdAndDelete(id);
     },
     rate: (_, args, { dataSources }) => {
       const newMap = assembleMap(args.ratersKeys, args.ratersValues);

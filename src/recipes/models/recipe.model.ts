@@ -62,6 +62,6 @@ const recipeModel = new mongoose.Schema({
 });
 
 export const recipeModels = {
-  newRecipe: mongoose.model('approvalList', recipeModel),
-  recipe: mongoose.model('recipe', recipeModel),
+  NewRecipe: mongoose.model('approvalList', recipeModel),
+  Recipe: mongoose.model('recipe', recipeModel),
 };

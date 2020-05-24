@@ -5,24 +5,25 @@ import cors from 'cors';
 import 'dotenv/config';
 
 import { connectMongo, models } from './db';
+import { getUserFromToken } from './helpers';
 import { RecipeAPI } from './sources/recipeDataSource';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-import { testResolvers } from './test/testResolver';
-import { recipeResolvers } from './recipes';
-import { userResolvers } from './users';
 
 connectMongo();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers: [resolvers, recipeResolvers, userResolvers, testResolvers],
+  resolvers,
+  // TODO: apply express req and res types to these
   context: async ({ req, res }: { req: any; res: any }) => {
     const token = req.headers.authorization || '';
+    const user = await getUserFromToken(token);
+
     return {
       req,
       res,
-      token,
+      user,
       models: {
         ...models,
       },

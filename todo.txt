@@ -19,6 +19,7 @@
 ----------------------- General Schema Improvements --------------------
 
 - make most queries & all mutations 1 single parameter called 'input'
+^ -> create inputs for recipe queries and mutations
 
 future:
 

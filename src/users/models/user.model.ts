@@ -28,7 +28,8 @@ userSchema.pre('save', async function(next) {
   }
 
   try {
-    user.password = await bcrypt.hash(user.password, process.env.SALT_ROUNDS);
+    const saltRounds = Number.parseInt(process.env.SALT_ROUNDS, 10);
+    user.password = await bcrypt.hash(user.password, saltRounds);
     return next();
   } catch (err) {
     console.log(`err ${err}`);
@@ -46,4 +47,4 @@ userSchema.methods.passwordIsValid = async function(password) {
   }
 };
 
-export const userModel = mongoose.model('user', userSchema);
+export const User = mongoose.model('user', userSchema);
