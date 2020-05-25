@@ -1,6 +1,8 @@
 export const userResolvers = {
   Query: {
-    me: (_, __, { dataSources }) => dataSources.recipeAPI.getUserData(),
+    me: (_, __, { user }) => {
+      return user;
+    },
     users: async (_, __, { models }) => {
       return models.User.find();
     },

@@ -20,7 +20,11 @@ export const authResolvers = {
         validPassword = await user.passwordIsValid(password);
       }
       if (validPassword) {
-        payload = { sub: user._id, isAdmin: user.isAdmin };
+        payload = {
+          sub: user._id,
+          isAdmin: false,
+          username: user.username,
+        };
         const token = await jwt.sign(payload, process.env.TOKEN_SECRET, {
           expiresIn: 7 * 24 * 60 * 60 * 1000,
         });
@@ -37,7 +41,11 @@ export const authResolvers = {
       });
       try {
         const user = await newUser.save();
-        const payload = { sub: user._id, isAdmin: false };
+        const payload = {
+          sub: user._id,
+          isAdmin: false,
+          username: user.username,
+        };
         const token = await jwt.sign(payload, process.env.TOKEN_SECRET, {
           expiresIn: 7 * 24 * 60 * 60 * 1000,
         });

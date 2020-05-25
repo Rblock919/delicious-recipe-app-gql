@@ -1,16 +1,17 @@
 import { gql } from 'apollo-server';
 
+// TODO: figure out if RatersInput is still needed
 export const recipeInputs = gql`
   input RecipeInput {
     id: ID
     title: String!
     producer: String!
     ingredients: [IngredientInput!]!
-    preCook: [String]!
+    preCook: [String!]
     steps: [StepInput!]!
     nutrition: NutritionValuesInput!
     imgDir: String!
-    favoriters: [String]
+    favoriters: [String!]
     raters: RatersInput
   }
   input RatersInput {
@@ -35,5 +36,9 @@ export const recipeInputs = gql`
   input IngredientInput {
     name: String!
     amount: String!
+  }
+  input RateRecipeInput {
+    recipeId: ID!
+    rating: Int!
   }
 `;

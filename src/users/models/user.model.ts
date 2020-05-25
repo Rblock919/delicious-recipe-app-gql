@@ -15,10 +15,11 @@ const userSchema = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
+    required: true,
+    default: false,
   },
 });
 
-// eslint-disable-next-line func-names
 userSchema.pre('save', async function(next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
@@ -37,7 +38,6 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-// eslint-disable-next-line func-names
 userSchema.methods.passwordIsValid = async function(password) {
   try {
     return await bcrypt.compare(password, this.password);
