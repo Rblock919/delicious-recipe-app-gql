@@ -9,7 +9,7 @@ export const authResolvers = {
     },
   },
   Mutation: {
-    signIn: async (_, { input }, { models }) => {
+    login: async (_, { input }, { models }) => {
       // TODO: incorporate login schema logic
       const { username, password } = input;
       let validPassword;
@@ -32,7 +32,7 @@ export const authResolvers = {
       }
       throw new AuthenticationError('Unauthorized');
     },
-    signUp: async (_, { input }, { models }) => {
+    register: async (_, { input }, { models }) => {
       const { username, password } = input;
       const newUser = new models.User({
         username,

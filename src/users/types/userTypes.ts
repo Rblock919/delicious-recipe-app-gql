@@ -12,10 +12,14 @@ export const userTypes = gql`
     token: String
   }
   extend type Query {
-    users: [User]!
-    me: User!
+    users: [User]! @authorized @authenticated
+    me: User! @authenticated
   }
   extend type Mutation {
     updateUsers(idArr: [String]!, isAdminArr: [Boolean]!): String!
+      @authorized
+      @authenticated
   }
 `;
+
+// TODO: test the above directives being on a line break

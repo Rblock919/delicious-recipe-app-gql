@@ -9,12 +9,17 @@ import { getUserFromToken } from './helpers';
 import { RecipeAPI } from './sources/recipeDataSource';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
+import { AuthenticatedDirective, AuthorizedDirective } from './directives';
 
 connectMongo();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  schemaDirectives: {
+    authenticated: AuthenticatedDirective,
+    authorized: AuthorizedDirective,
+  },
   // TODO: apply express req and res types to these
   context: async ({ req, res }: { req: any; res: any }) => {
     const token = req.headers.authorization || '';

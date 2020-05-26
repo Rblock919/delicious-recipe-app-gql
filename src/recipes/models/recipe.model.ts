@@ -1,21 +1,9 @@
 import mongoose from 'mongoose';
-
-const isNotBlueApron = function(): boolean {
-  return this.producer !== 'Blue Apron';
-};
-
-const isHelloFresh = function(): boolean {
-  return this.producer === 'Hello Fresh';
-};
-
-const isNotNegative = (value): boolean => {
-  return value > 0;
-};
-
-const validateNutritionNumber = {
-  validator: isNotNegative,
-  message: 'Value Cannot Be Negative',
-};
+import {
+  isHelloFresh,
+  isNotBlueApron,
+  validateNutritionNumber,
+} from '../../helpers';
 
 const recipeSchema = new mongoose.Schema({
   title: {

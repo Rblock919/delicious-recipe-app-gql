@@ -46,18 +46,20 @@ export const recipeTypes = gql`
     id: String
   }
   extend type Query {
-    recipe(id: ID!): Recipe!
-    recipes: [Recipe]!
-    unapprovedRecipe(id: ID!): Recipe!
-    unapprovedRecipes: [Recipe]!
+    recipe(id: ID!): Recipe! @authenticated
+    recipes: [Recipe]! @authenticated
+    unapprovedRecipe(id: ID!): Recipe! @authorized @authenticated
+    unapprovedRecipes: [Recipe]! @authorized @authenticated
   }
   extend type Mutation {
-    submit(input: RecipeInput!): String!
-    approve(input: ApproveRecipeInput!): Recipe!
+    submit(input: RecipeInput!): String! @authenticated
+    approve(input: ApproveRecipeInput!): Recipe! @authorized @authenticated
     update(recipeId: ID!, recipe: RecipeInput!): String!
-    favorite(id: ID!): String!
-    rate(input: RateRecipeInput!): String!
-    reject(id: ID!): String!
-    delete(id: ID!): String!
+      @authorized
+      @authenticated
+    favorite(id: ID!): String! @authenticated
+    rate(input: RateRecipeInput!): String! @authenticated
+    reject(id: ID!): String! @authorized @authenticated
+    delete(id: ID!): String! @authorized @authenticated
   }
 `;
