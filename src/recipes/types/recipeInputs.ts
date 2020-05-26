@@ -41,4 +41,8 @@ export const recipeInputs = gql`
     recipeId: ID!
     rating: Int!
   }
+  input ApproveRecipeInput {
+    approvalId: ID!
+    recipe: RecipeInput!
+  }
 `;

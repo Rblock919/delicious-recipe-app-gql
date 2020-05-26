@@ -17,7 +17,7 @@ const validateNutritionNumber = {
   message: 'Value Cannot Be Negative',
 };
 
-const recipeModel = new mongoose.Schema({
+const recipeSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -121,7 +121,11 @@ const recipeModel = new mongoose.Schema({
   },
 });
 
+recipeSchema.virtual('favorites').get(function(): number {
+  return this.favoriters.length;
+});
+
 export const recipeModels = {
-  NewRecipe: mongoose.model('approvalList', recipeModel),
-  Recipe: mongoose.model('recipe', recipeModel),
+  NewRecipe: mongoose.model('approvalList', recipeSchema),
+  Recipe: mongoose.model('recipe', recipeSchema),
 };

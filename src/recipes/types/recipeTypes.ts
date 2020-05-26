@@ -39,6 +39,7 @@ export const recipeTypes = gql`
     nutritionValues: NutritionValues!
     imgDir: String!
     favoriters: [String]!
+    favorites: Int!
     raters: Raters!
   }
   type addRecipeRes {
@@ -52,7 +53,7 @@ export const recipeTypes = gql`
   }
   extend type Mutation {
     submit(input: RecipeInput!): String!
-    add(approvalId: ID!, recipe: RecipeInput!): addRecipeRes!
+    approve(input: ApproveRecipeInput!): Recipe!
     update(recipeId: ID!, recipe: RecipeInput!): String!
     favorite(id: ID!): String!
     rate(input: RateRecipeInput!): String!

@@ -28,6 +28,7 @@ export const recipeResolvers = {
       return 'Success';
     },
     // TODO: improve by using try catches and returning better errors to client
+    // TODO: implement auth to make sure user exists
     rate: async (_, { input }, { models, user }) => {
       const { recipeId, rating } = input;
 
@@ -45,6 +46,7 @@ export const recipeResolvers = {
       return 'Success';
     },
     // TODO: improve by using try catches and returning better errors to client
+    // TODO: implement auth to make sure user exists
     favorite: async (_, { id }, { models, user }) => {
       const recipe = await models.Recipe.findById(id);
       const { favoriters } = recipe;
@@ -79,31 +81,36 @@ export const recipeResolvers = {
       return dataSources.recipeAPI.updateRecipe(updatedRecipe);
     },
     submit: async (_, { input }, { models }) => {
-      // TODO: have to implement validation here to make sure preCook isn't an empty array for non blue apron submissions (mongo can't)
       const newRecipe = input;
-      // console.log({ newRecipe });
       newRecipe.nutritionValues = { ...newRecipe.nutrition };
       delete newRecipe.nutrition;
 
       const recipe = new models.NewRecipe(newRecipe);
 
       // Since this value is an array in mongo it will autopopulate and therefor cannot implement reqruied at a db level
-      if (recipe.prodcer !== 'Blue Apron' && recipe.preCook.length === 0) {
+      if (recipe.producer !== 'Blue Apron' && recipe.preCook.length === 0) {
         throw new UserInputError(
           'Home Chef & Hello Fresh Recipes Must Have a Precook Value'
         );
       }
-      // console.log({ recipe });
+
       await recipe.save();
 
       return 'Success';
     },
-    add: (_, args, { dataSources }) => {
-      const { recipe } = args;
+    // TODO: improve with try-catches and better error handling
+    approve: async (_, { input }, { models }) => {
+      const { approvalId, recipe } = input;
+
       recipe.nutritionValues = { ...recipe.nutrition };
       delete recipe.nutrition;
 
-      return dataSources.recipeAPI.addRecipe(recipe, args.approvalId);
+      const newRecipe = new models.Recipe(recipe);
+
+      await newRecipe.save();
+      await models.NewRecipe.findByIdAndDelete(approvalId);
+
+      return newRecipe;
     },
   },
   Recipe: {
