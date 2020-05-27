@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+import { UserInputError } from 'apollo-server';
+
 export const userResolvers = {
   Query: {
     me: (_, __, { user }) => {
@@ -8,19 +11,54 @@ export const userResolvers = {
     },
   },
   Mutation: {
-    updateUsers: (_, args, { dataSources }) => {
-      const ids = args.idArr as string[];
-      const isAdmins = args.isAdminArr as string[];
-      const users = [];
+    updateUsers: async (_, { input }, { models }) => {
+      const updatedUsers = input;
+      let setToTrueIds: string[];
+      let setToFalseIds: string[];
 
-      ids.forEach((id, index) => {
-        users.push({
-          _id: id,
-          isAdmin: isAdmins[index],
-        });
-      });
+      try {
+        setToTrueIds = updatedUsers
+          .map(user => {
+            return user.isAdmin
+              ? new mongoose.Types.ObjectId(user.userId)
+              : null;
+          })
+          .filter(x => x !== null);
 
-      return dataSources.recipeAPI.updateUsers(users);
+        setToFalseIds = updatedUsers
+          .map(user => {
+            return user.isAdmin
+              ? null
+              : new mongoose.Types.ObjectId(user.userId);
+          })
+          .filter(x => x !== null);
+      } catch (error) {
+        console.log('err: ', error);
+        throw new UserInputError('Ids in idArr Must Be Valid MongoDB Ids');
+      }
+
+      console.log({ setToTrue: setToTrueIds });
+      console.log({ setToFalse: setToFalseIds });
+
+      try {
+        if (setToTrueIds.length > 0) {
+          await models.User.updateMany(
+            { _id: { $in: setToTrueIds } },
+            { $set: { isAdmin: true } }
+          );
+        }
+        if (setToFalseIds.length > 0) {
+          await models.User.updateMany(
+            { _id: { $in: setToFalseIds } },
+            { $set: { isAdmin: false } }
+          );
+        }
+      } catch (error) {
+        console.log('err updating users: ', error);
+        throw new UserInputError('Error Updating Users in DB');
+      }
+
+      return 'Success';
     },
   },
 };

@@ -1,5 +1,5 @@
 import { recipeInputs, recipeTypes } from './recipes';
-import { userTypes } from './users';
+import { userTypes, userInputs } from './users';
 import { authTypes, authInputs } from './auth';
 
 export const typeDefs = [
@@ -8,4 +8,5 @@ export const typeDefs = [
   recipeTypes,
   recipeInputs,
   userTypes,
+  userInputs,
 ];

@@ -66,19 +66,19 @@ export const recipeResolvers = {
       );
       return 'Success';
     },
-    update: (_, args, { dataSources }) => {
-      const updatedRecipe = args.recipe;
+    update: async (_, { input }, { models }) => {
+      const { recipe, recipeId } = input;
       // TODO: fix the discrepancy in the angular forms between nutrition & nutritionValues
-      updatedRecipe.nutritionValues = { ...updatedRecipe.nutrition };
-      delete updatedRecipe.nutrition;
+      recipe.nutritionValues = { ...recipe.nutrition };
+      delete recipe.nutrition;
 
-      updatedRecipe.raters = assembleMap(
-        updatedRecipe.raters.keys,
-        updatedRecipe.raters.values
-      );
-      updatedRecipe._id = args.recipeId;
+      if (recipe.raters?.keys.length > 0 && recipe.raters?.values.length > 0) {
+        recipe.raters = assembleMap(recipe.raters.keys, recipe.raters.values);
+      }
 
-      return dataSources.recipeAPI.updateRecipe(updatedRecipe);
+      return models.Recipe.findByIdAndUpdate(recipeId, recipe, {
+        new: true,
+      });
     },
     submit: async (_, { input }, { models }) => {
       const newRecipe = input;

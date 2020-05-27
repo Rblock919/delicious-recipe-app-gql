@@ -16,9 +16,7 @@ export const userTypes = gql`
     me: User! @authenticated
   }
   extend type Mutation {
-    updateUsers(idArr: [String]!, isAdminArr: [Boolean]!): String!
-      @authorized
-      @authenticated
+    updateUsers(input: [UpdateUserInput!]!): String! @authorized @authenticated
   }
 `;
 

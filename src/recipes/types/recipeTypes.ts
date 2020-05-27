@@ -54,9 +54,7 @@ export const recipeTypes = gql`
   extend type Mutation {
     submit(input: RecipeInput!): String! @authenticated
     approve(input: ApproveRecipeInput!): Recipe! @authorized @authenticated
-    update(recipeId: ID!, recipe: RecipeInput!): String!
-      @authorized
-      @authenticated
+    update(input: UpdateRecipeInput!): Recipe! @authorized @authenticated
     favorite(id: ID!): String! @authenticated
     rate(input: RateRecipeInput!): String! @authenticated
     reject(id: ID!): String! @authorized @authenticated

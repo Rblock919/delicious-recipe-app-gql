@@ -22,7 +22,7 @@ export const authResolvers = {
       if (validPassword) {
         payload = {
           sub: user._id,
-          isAdmin: false,
+          isAdmin: user.isAdmin,
           username: user.username,
         };
         const token = await jwt.sign(payload, process.env.TOKEN_SECRET, {
@@ -30,7 +30,7 @@ export const authResolvers = {
         });
         return { user, token };
       }
-      throw new AuthenticationError('Unauthorized');
+      throw new AuthenticationError('Wrong Username/Password');
     },
     register: async (_, { input }, { models }) => {
       const { username, password } = input;
