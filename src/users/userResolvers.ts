@@ -37,9 +37,6 @@ export const userResolvers = {
         throw new UserInputError('Ids in idArr Must Be Valid MongoDB Ids');
       }
 
-      console.log({ setToTrue: setToTrueIds });
-      console.log({ setToFalse: setToFalseIds });
-
       try {
         if (setToTrueIds.length > 0) {
           await models.User.updateMany(
