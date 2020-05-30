@@ -1,5 +1,5 @@
 // this is just for seeding purposes, data actually stored in MongoDB
-export const recipeData = [
+export const recipes = [
   {
     title: 'Crispy Chipotle Shrimp Tacos',
     producer: 'Hello Fresh',

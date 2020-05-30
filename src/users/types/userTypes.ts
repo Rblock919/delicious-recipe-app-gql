@@ -19,5 +19,3 @@ export const userTypes = gql`
     updateUsers(input: [UpdateUserInput!]!): String! @authorized @authenticated
   }
 `;
-
-// TODO: test the above directives being on a line break

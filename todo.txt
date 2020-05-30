@@ -19,7 +19,6 @@
 ----------------------- General Schema Improvements --------------------
 
 - make most queries & all mutations 1 single parameter called 'input'
-^ -> create inputs for recipe queries and mutations
 
 future:
 
@@ -27,11 +26,3 @@ future:
 - update nutritionValues -> nutrition
 
 ------------------------------------------------------------------------
-
---------------------------- MongoDB ----------------------------
-
-- strip mongodb implementation from api and port to this gql server
-- implement DataLoaders
-- improve schemas/models
-
-----------------------------------------------------------------

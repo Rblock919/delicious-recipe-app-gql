@@ -5,6 +5,7 @@ import cors from 'cors';
 import 'dotenv/config';
 
 import { connectMongo, models } from './db';
+import { loaders } from './loaders';
 import { getUserFromToken } from './helpers';
 import { RecipeAPI } from './sources/recipeDataSource';
 import { typeDefs } from './typeDefs';
@@ -32,6 +33,7 @@ const server = new ApolloServer({
       models: {
         ...models,
       },
+      loaders: loaders(),
     };
   },
   dataSources: () => ({

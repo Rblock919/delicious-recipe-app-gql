@@ -5,14 +5,14 @@ import { assembleMap } from '../helpers/assembleMap';
 
 export const recipeResolvers = {
   Query: {
-    recipe: async (_, { id }, { models }) => {
-      return models.Recipe.findById(id);
+    recipe: async (_, { id }, { loaders }) => {
+      return loaders.Recipe.load(id);
     },
     recipes: async (_, __, { models }) => {
       return models.Recipe.find();
     },
-    unapprovedRecipe: async (_, { id }, { models }) => {
-      return models.NewRecipe.findById(id);
+    unapprovedRecipe: async (_, { id }, { loaders }) => {
+      return loaders.NewRecipe.load(id);
     },
     unapprovedRecipes: async (_, __, { models }) => {
       return models.NewRecipe.find();
@@ -28,7 +28,6 @@ export const recipeResolvers = {
       return 'Success';
     },
     // TODO: improve by using try catches and returning better errors to client
-    // TODO: implement auth to make sure user exists
     rate: async (_, { input }, { models, user }) => {
       const { recipeId, rating } = input;
 
@@ -46,7 +45,6 @@ export const recipeResolvers = {
       return 'Success';
     },
     // TODO: improve by using try catches and returning better errors to client
-    // TODO: implement auth to make sure user exists
     favorite: async (_, { id }, { models, user }) => {
       const recipe = await models.Recipe.findById(id);
       const { favoriters } = recipe;
