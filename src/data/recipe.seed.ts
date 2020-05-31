@@ -1,4 +1,4 @@
-// this is just for seeding purposes, data actually stored in MongoDB
+// this file is for seeding purposes
 export const recipes = [
   {
     title: 'Crispy Chipotle Shrimp Tacos',

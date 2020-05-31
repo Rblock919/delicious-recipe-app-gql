@@ -7,10 +7,9 @@ import 'dotenv/config';
 import { connectMongo, models } from './db';
 import { loaders } from './loaders';
 import { getUserFromToken } from './helpers';
-import { RecipeAPI } from './sources/recipeDataSource';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-import { schemaDirectives } from './directives/index';
+import { schemaDirectives } from './directives/schemaDirectives';
 
 connectMongo();
 
@@ -30,9 +29,6 @@ const server = new ApolloServer({
       loaders: loaders(),
     };
   },
-  dataSources: () => ({
-    recipeAPI: new RecipeAPI(),
-  }),
 });
 
 const app = express();

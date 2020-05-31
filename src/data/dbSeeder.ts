@@ -5,9 +5,9 @@ import { recipes } from './recipe.seed';
 import { users } from './user.seed';
 
 MongoClient.connect(
-  // 'mongodb://mongo:27017',
+  'mongodb://mongo:27017',
   // 'mongodb://appUser:recipe@localhost:27017/recipeApp?authSource=recipeApp',
-  'mongodb://dev:dev@192.168.1.13:27017/recipeApp?authSource=admin',
+  // 'mongodb://dev:dev@192.168.1.13:27017/recipeApp?authSource=admin',
   { useNewUrlParser: true, useUnifiedTopology: true },
   async (err, client) => {
     if (err) {
