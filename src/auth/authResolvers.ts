@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export const authResolvers = {
   Query: {
-    signOut: () => {
+    logout: () => {
       // TODO: invalidate token?
       return 'Signed Out';
     },

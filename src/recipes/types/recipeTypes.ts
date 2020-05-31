@@ -30,7 +30,7 @@ export const recipeTypes = gql`
     BLUE_APRON
   }
   type Recipe {
-    id: ID!
+    _id: ID!
     title: String!
     producer: String!
     ingredients: [Ingredient!]!
@@ -41,9 +41,6 @@ export const recipeTypes = gql`
     favoriters: [String]!
     favorites: Int!
     raters: Raters!
-  }
-  type addRecipeRes {
-    id: String
   }
   extend type Query {
     recipe(id: ID!): Recipe! @authenticated

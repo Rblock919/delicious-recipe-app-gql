@@ -4,7 +4,7 @@ export const authTypes = gql`
   directive @authenticated on FIELD_DEFINITION
   directive @authorized on FIELD_DEFINITION
   type Query {
-    signOut: String!
+    logout: String!
   }
   type Mutation {
     login(input: LoginInput!): AuthUser!

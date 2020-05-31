@@ -34,7 +34,7 @@ export const recipeResolvers = {
       const recipe = await models.Recipe.findById(recipeId);
       const { raters } = recipe;
 
-      raters.set(user.id, rating);
+      raters.set(user._id, rating);
 
       await models.Recipe.updateOne(
         { _id: recipeId },
@@ -50,11 +50,11 @@ export const recipeResolvers = {
       const { favoriters } = recipe;
       let newFavoriters: string[];
 
-      if (favoriters.includes(user.id)) {
-        newFavoriters = favoriters.filter((x: string) => x !== user.id);
+      if (favoriters.includes(user._id)) {
+        newFavoriters = favoriters.filter((x: string) => x !== user._id);
       } else {
         newFavoriters = favoriters;
-        newFavoriters.push(user.id);
+        newFavoriters.push(user._id);
       }
 
       await models.Recipe.updateOne(
@@ -66,17 +66,24 @@ export const recipeResolvers = {
     },
     update: async (_, { input }, { models }) => {
       const { recipe, recipeId } = input;
-      // TODO: fix the discrepancy in the angular forms between nutrition & nutritionValues
-      recipe.nutritionValues = { ...recipe.nutrition };
-      delete recipe.nutrition;
 
-      if (recipe.raters?.keys.length > 0 && recipe.raters?.values.length > 0) {
-        recipe.raters = assembleMap(recipe.raters.keys, recipe.raters.values);
-      }
+      const updatedData = {
+        title: recipe.title,
+        producer: recipe.producer,
+        ingredients: recipe.ingredients,
+        steps: recipe.steps,
+        imgDir: recipe.imgDir,
+        // TODO: fix the discrepancy in the angular forms between nutrition & nutritionValues
+        nutritionValues: recipe.nutrition,
+      };
 
-      return models.Recipe.findByIdAndUpdate(recipeId, recipe, {
-        new: true,
-      });
+      return models.Recipe.findByIdAndUpdate(
+        recipeId,
+        { $set: updatedData },
+        {
+          new: true,
+        }
+      );
     },
     submit: async (_, { input }, { models }) => {
       const newRecipe = input;

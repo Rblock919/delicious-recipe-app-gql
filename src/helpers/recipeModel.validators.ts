@@ -7,6 +7,9 @@ export const isHelloFresh = function(): boolean {
 };
 
 const isNotNegative = (value): boolean => {
+  if (value === null) {
+    return true;
+  }
   return value > 0;
 };
 

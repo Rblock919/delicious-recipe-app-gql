@@ -7,13 +7,13 @@ export const getUserFromToken = async (authHeader: string) => {
       const payload = await jwt.verify(token, process.env.TOKEN_SECRET);
       if (payload.exp > Date.now() / 1000) {
         return {
-          id: payload.sub,
+          _id: payload.sub,
           isAdmin: payload.isAdmin,
           username: payload.username,
         };
       }
     } catch (error) {
-      console.log('error verifying token: ', error);
+      console.log('error retrieving user from token');
     }
   }
   return null;

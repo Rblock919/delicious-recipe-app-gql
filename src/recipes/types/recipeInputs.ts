@@ -10,8 +10,6 @@ export const recipeInputs = gql`
     steps: [StepInput!]!
     nutrition: NutritionValuesInput!
     imgDir: String!
-    favoriters: [String!]
-    raters: RatersInput
   }
   input RatersInput {
     keys: [String]!
