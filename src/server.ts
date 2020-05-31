@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import chalk from 'chalk';
 import cors from 'cors';
@@ -10,19 +10,15 @@ import { getUserFromToken } from './helpers';
 import { RecipeAPI } from './sources/recipeDataSource';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-import { AuthenticatedDirective, AuthorizedDirective } from './directives';
+import { schemaDirectives } from './directives/index';
 
 connectMongo();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  schemaDirectives: {
-    authenticated: AuthenticatedDirective,
-    authorized: AuthorizedDirective,
-  },
-  // TODO: apply express req and res types to these
-  context: async ({ req, res }: { req: any; res: any }) => {
+  schemaDirectives,
+  context: async ({ req, res }: { req: Request; res: Response }) => {
     const token = req.headers.authorization || '';
     const user = await getUserFromToken(token);
 
@@ -30,9 +26,7 @@ const server = new ApolloServer({
       req,
       res,
       user,
-      models: {
-        ...models,
-      },
+      models,
       loaders: loaders(),
     };
   },

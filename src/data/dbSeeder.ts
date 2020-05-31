@@ -1,10 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import { MongoClient } from 'mongodb';
 
-import { recipes } from './data/recipe.seed';
-import { users } from './data/user.seed';
+import { recipes } from './recipe.seed';
+import { users } from './user.seed';
 
-// TODO: implement seeding for db-users
 MongoClient.connect(
   // 'mongodb://mongo:27017',
   // 'mongodb://appUser:recipe@localhost:27017/recipeApp?authSource=recipeApp',

@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server';
 
-// TODO: figure out if RatersInput is still needed
+// TODO: refactor update recipe mutation so that passing in favoriters and raters is no longer required
 export const recipeInputs = gql`
   input RecipeInput {
     title: String!
