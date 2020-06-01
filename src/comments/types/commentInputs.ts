@@ -5,4 +5,8 @@ export const commentInputs = gql`
     body: String!
     recipeId: ID!
   }
+  input UpdateCommentInput {
+    id: ID!
+    body: String!
+  }
 `;

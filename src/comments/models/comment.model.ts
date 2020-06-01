@@ -21,7 +21,14 @@ const commentSchema = new mongoose.Schema({
     ref: 'recipe',
     required: [true, 'Comment must be tied to a recipe'],
   },
-  // TODO: add in editedAt timestamp then a virtual field about whether it has been edited or not
+  updatedAt: {
+    type: Date,
+    required: false,
+  },
+});
+
+commentSchema.virtual('edited').get(function(): boolean {
+  return this.updatedAt !== undefined;
 });
 
 export const Comment = mongoose.model('comment', commentSchema);

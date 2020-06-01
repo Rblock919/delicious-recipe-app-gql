@@ -19,6 +19,7 @@ export const recipeResolvers = {
     },
   },
   Mutation: {
+    // TODO: improve the below two methods with try-catches
     delete: async (_, { id }, { models }) => {
       await models.Recipe.findByIdAndDelete(id);
       return 'Success';

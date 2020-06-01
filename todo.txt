@@ -3,11 +3,14 @@
 
 - find better way to 'log to console' for heroku or remote environments in general (heroku different from aws lamba in terms of stdout?)
 
-- updateComment mutation
+- create extended custom error for locked (423) exception
+
+- implement moment to better format dates
+- create directive for optional param on createdAt/updatedAt formatting date-time
 
 - create directive for accessing user type fields so that usernames can be safely
 returned on favoriters and author information without exposing ids, roles & passwords
-- create directive for optional param on createdAt/updatedAt formatting date-time
+- create directive for validating mongodb ids
 
 - start to implement testing
 
