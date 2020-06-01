@@ -99,13 +99,18 @@ const recipeSchema = new mongoose.Schema({
   },
   favoriters: {
     type: [mongoose.Schema.Types.ObjectId],
-    default: [],
     ref: 'user',
+    default: [],
   },
   raters: {
     type: Map,
     of: Number,
     default: new Map<string, number>(),
+  },
+  comments: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'comment',
+    default: [],
   },
 });
 

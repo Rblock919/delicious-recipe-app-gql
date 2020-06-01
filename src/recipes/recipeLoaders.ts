@@ -4,6 +4,7 @@ import { recipeModels } from './models/recipe.model';
 
 export const createRecipeLoader = () => {
   return new DataLoader(recipeIds => {
+    console.log('in recipe loader');
     return recipeModels.Recipe.find({ _id: { $in: recipeIds } })
       .exec()
       .then(recipes => {

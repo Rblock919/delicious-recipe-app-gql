@@ -1,5 +1,5 @@
 import { UserInputError } from 'apollo-server';
-import { assembleMap } from '../helpers/assembleMap';
+// import { assembleMap } from '../helpers/assembleMap';
 
 // TODO: eventually move all model calls to separate file where try-catches and other things can be implemented
 
@@ -125,6 +125,10 @@ export const recipeResolvers = {
         keys: Array.from(raters.keys()),
         values: Array.from(raters.values()),
       };
+    },
+    comments: ({ comments }, _, { models }) => {
+      // console.log({ comments });
+      return models.Comment.find({ _id: { $in: comments } });
     },
   },
 };

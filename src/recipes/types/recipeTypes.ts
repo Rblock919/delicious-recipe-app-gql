@@ -41,6 +41,7 @@ export const recipeTypes = gql`
     favoriters: [String]!
     favorites: Int!
     raters: Raters!
+    comments: [Comment]!
   }
   extend type Query {
     recipe(id: ID!): Recipe! @authenticated

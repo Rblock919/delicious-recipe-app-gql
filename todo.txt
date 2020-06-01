@@ -1,10 +1,16 @@
               -- Recipe Apollo Server --
 
-- get content security policy working with gql
 
 - find better way to 'log to console' for heroku or remote environments in general (heroku different from aws lamba in terms of stdout?)
 
+- updateComment mutation
+
+- create directive for accessing user type fields so that usernames can be safely
+returned on favoriters and author information without exposing ids, roles & passwords
+- create directive for optional param on createdAt/updatedAt formatting date-time
+
 - start to implement testing
+
 - implement password resets (for users & admin)
 - implement pagination for recipe search page and recipe list page
 - possibly email just ingredients or something
@@ -15,6 +21,8 @@
 - add sentry sourcemap npm scripts
 - add sentry to project code
 - add sourcemap options to tsconfig
+
+- get content security policy working with gql
 
 ----------------------- General Schema Improvements --------------------
 

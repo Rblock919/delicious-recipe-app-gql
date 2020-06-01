@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 import chalk from 'chalk';
+
 import { recipeModels } from './recipes';
 import { User } from './users';
 import { Login } from './auth';
+import { Comment } from './comments';
 
 export const connectMongo = () => {
   mongoose.connect(
@@ -18,4 +20,4 @@ export const connectMongo = () => {
   );
 };
 
-export const models = { ...recipeModels, User, Login };
+export const models = { ...recipeModels, User, Login, Comment };
