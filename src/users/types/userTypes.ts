@@ -16,6 +16,8 @@ export const userTypes = gql`
     me: User! @authenticated
   }
   extend type Mutation {
-    updateUsers(input: [UpdateUserInput!]!): String! @authorized @authenticated
+    updateUsers(input: [UpdateUserInput!]! @validMongoId): String!
+      @authorized
+      @authenticated
   }
 `;

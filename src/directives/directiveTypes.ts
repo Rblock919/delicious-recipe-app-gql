@@ -6,4 +6,5 @@ export const directiveTypes = gql`
   directive @formatDate(
     format: String = "dddd, mmmm dS, yyyy, h:MM:ss TT"
   ) on FIELD_DEFINITION
+  directive @validMongoId on ARGUMENT_DEFINITION
 `;
