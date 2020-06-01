@@ -5,12 +5,11 @@
 
 - create extended custom error for locked (423) exception
 
-- implement moment to better format dates
-- create directive for optional param on createdAt/updatedAt formatting date-time
-
 - create directive for accessing user type fields so that usernames can be safely
 returned on favoriters and author information without exposing ids, roles & passwords
-- create directive for validating mongodb ids
+
+- create directive for authorizing updateComment?
+- create directive for deleting comments (have to be admin or author)?
 
 - start to implement testing
 

@@ -11,13 +11,14 @@ export const commentTypes = gql`
     edited: Boolean!
   }
   extend type Query {
-    comment(id: ID! @validMongoId): Comment!
-    recipeComments(recipeId: ID! @validMongoId): [Comment]!
-    userComments(userId: ID @validMongoId): [Comment]!
+    comment(id: ID! @validMongoId): Comment! @authenticated
+    recipeComments(recipeId: ID! @validMongoId): [Comment]! @authenticated
+    userComments(userId: ID @validMongoId): [Comment]! @authenticated
   }
   extend type Mutation {
-    createComment(input: CommentInput! @validMongoId): Comment!
-    deleteComment(id: ID! @validMongoId): String!
+    createComment(input: CommentInput! @validMongoId): Comment! @authenticated
+    deleteComment(id: ID! @validMongoId): String! @authenticated
     updateComment(input: UpdateCommentInput! @validMongoId): Comment!
+      @authenticated
   }
 `;

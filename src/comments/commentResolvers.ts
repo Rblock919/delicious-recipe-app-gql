@@ -1,17 +1,9 @@
-import { ObjectId } from 'mongodb';
-import { UserInputError, AuthenticationError } from 'apollo-server';
+import { AuthenticationError } from 'apollo-server';
 
 export const commentResolvers = {
   Query: {
     recipeComments: async (_, { recipeId }, { models }) => {
-      let id = recipeId;
-      // TODO: move this logic to a directive
-      try {
-        id = new ObjectId(id);
-        return models.Comment.find({ recipe: id });
-      } catch (error) {
-        return new UserInputError('recipeId must be valid mongo id');
-      }
+      return models.Comment.find({ recipe: recipeId });
     },
     userComments: async (_, { userId }, { models, user }) => {
       if (userId) {
