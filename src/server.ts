@@ -9,7 +9,7 @@ import { loaders } from './loaders';
 import { getUserFromToken } from './helpers';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
-import { schemaDirectives } from './directives/schemaDirectives';
+import { schemaDirectives } from './directives';
 
 connectMongo();
 

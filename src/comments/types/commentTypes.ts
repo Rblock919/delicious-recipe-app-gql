@@ -1,14 +1,13 @@
 import { gql } from 'apollo-server';
 
-// TODO: update types for dates?
 export const commentTypes = gql`
   type Comment {
     _id: ID!
     author: User!
-    createdAt: String!
+    createdAt: String! @formatDate
     body: String!
     recipe: Recipe!
-    updatedAt: String
+    updatedAt: String @formatDate
     edited: Boolean!
   }
   extend type Query {

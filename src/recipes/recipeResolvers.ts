@@ -128,7 +128,6 @@ export const recipeResolvers = {
       };
     },
     comments: ({ comments }, _, { models }) => {
-      // console.log({ comments });
       return models.Comment.find({ _id: { $in: comments } });
     },
   },
