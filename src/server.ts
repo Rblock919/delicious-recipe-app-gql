@@ -10,6 +10,7 @@ import { getUserFromToken } from './helpers';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import { schemaDirectives } from './directives';
+import { services } from './services';
 
 connectMongo();
 
@@ -26,6 +27,7 @@ const server = new ApolloServer({
       res,
       user,
       models,
+      services,
       loaders: loaders(),
     };
   },

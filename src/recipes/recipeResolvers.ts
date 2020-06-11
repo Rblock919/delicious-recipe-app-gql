@@ -1,21 +1,20 @@
 import { UserInputError } from 'apollo-server';
-// import { assembleMap } from '../helpers/assembleMap';
 
 // TODO: eventually move all model calls to separate file where try-catches and other things can be implemented
 
 export const recipeResolvers = {
   Query: {
-    recipe: async (_, { id }, { loaders }) => {
-      return loaders.Recipe.load(id);
+    recipe: async (_, { id }, { services, loaders }) => {
+      return services.Recipe.getRecipeById(id, loaders.Recipe);
     },
-    recipes: async (_, __, { models }) => {
-      return models.Recipe.find();
+    recipes: async (_, __, { services, models }) => {
+      return services.Recipe.getAllRecipes(models.Recipe);
     },
-    unapprovedRecipe: async (_, { id }, { loaders }) => {
-      return loaders.NewRecipe.load(id);
+    unapprovedRecipe: async (_, { id }, { services, loaders }) => {
+      return services.Recipe.getUnapprovedRecipeById(id, loaders.NewRecipe);
     },
-    unapprovedRecipes: async (_, __, { models }) => {
-      return models.NewRecipe.find();
+    unapprovedRecipes: async (_, __, { services, models }) => {
+      return services.Recipe.getAllUnapprovedRecipes(models.NewRecipe);
     },
   },
   Mutation: {
