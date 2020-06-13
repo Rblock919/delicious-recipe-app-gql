@@ -207,5 +207,31 @@ describe('RecipeResolvers', () => {
         models.NewRecipe
       );
     });
+
+    it('resolveField raters should return correct value', () => {
+      const raters = new Map<string, number>();
+      raters.set('key1', 5);
+      const recipe = { raters };
+
+      const expectedValue = {
+        keys: ['key1'],
+        values: [5],
+      };
+      const actualValue = recipeResolvers.Recipe.raters(recipe);
+
+      expect(actualValue).toEqual(expectedValue);
+    });
+
+    it('resolveField comments should call find on comments model with correct params', () => {
+      const comments = ['id1', 'id2', 'id3'];
+      const mockModel = { Comment: { find: jest.fn() } };
+
+      recipeResolvers.Recipe.comments({ comments }, null, {
+        models: mockModel,
+      });
+
+      const expectedCallValue = { _id: { $in: comments } };
+      expect(mockModel.Comment.find).toHaveBeenCalledWith(expectedCallValue);
+    });
   });
 });
