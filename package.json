@@ -11,7 +11,6 @@
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint --fix 'src/**/*.ts'",
     "lint:probe": "eslint --fix-dry-run 'src/**/*.ts'",
-    "preinstall": "rm -rf node_modules",
     "postinstall": "npm run build",
     "test": "jest --no-cache --runInBand",
     "test:watch": "jest --watch --no-cache --runInBand",
