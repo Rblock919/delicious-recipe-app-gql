@@ -1,7 +1,7 @@
               -- Recipe Apollo Server --
 
-
 - find better way to 'log to console' for heroku or remote environments in general (heroku different from aws lamba in terms of stdout?)
+- implement loggly?
 
 - create extended custom error for locked (423) exception
 
@@ -22,6 +22,7 @@ returned on favoriters and author information without exposing ids, roles & pass
 
 - add sentry sourcemap npm scripts
 - add sentry to project code
+- add project for this app in sentry
 - add sourcemap options to tsconfig
 
 - get content security policy working with gql
