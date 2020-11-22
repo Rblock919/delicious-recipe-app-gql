@@ -3,6 +3,8 @@
 - find better way to 'log to console' for heroku or remote environments in general (heroku different from aws lamba in terms of stdout?)
 - implement loggly?
 
+- possibly implement mongoDataSource over manual DB calls
+
 - create extended custom error for locked (423) exception
 
 - create directive for accessing user type fields so that usernames can be safely
