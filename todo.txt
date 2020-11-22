@@ -4,6 +4,7 @@
 - implement loggly?
 
 - possibly implement mongoDataSource over manual DB calls
+^> (see: https://github.com/GraphQLGuide/apollo-datasource-mongodb/)
 
 - create extended custom error for locked (423) exception
 
